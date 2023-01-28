@@ -73,6 +73,9 @@ To run the tests, you can use `yarn test` (or `npm test`) in the root, `/auth`, 
 
 ## Built With
 
+<details>
+  <summary>Click to Expand: Technologies List</summary>
+
 - [Express.js](https://expressjs.com/) - The web framework used
 - [Mongoose](https://mongoosejs.com/) - MongoDB object modeling tool
 - [Passport](http://www.passportjs.org/) - Authentication middleware
@@ -83,6 +86,12 @@ To run the tests, you can use `yarn test` (or `npm test`) in the root, `/auth`, 
 - [Docker](https://www.docker.com/) - Containerization platform
 - [HAProxy](https://www.haproxy.com/) - Load balancer
 - [MongoDB](https://www.mongodb.com/) - NoSQL database
+- [Axios](https://www.npmjs.com/package/axios) - Promise based HTTP client
+- [Istanbul](https://istanbul.js.org/) - JavaScript code coverage tool
+- [Jest](https://jestjs.io/) - JavaScript testing framework
+- [Chart.js](https://www.chartjs.org/) - JavaScript library for data visualization
+
+</details>
 
 ## Authors
 * **Oleh Kuibar** - *Initial work* - [olegkuibar](https://www.github.com/olegkuibar)
