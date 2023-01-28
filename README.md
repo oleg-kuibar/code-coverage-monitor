@@ -4,7 +4,7 @@ This repository contains a web application that allows you to monitor the code c
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/yourusername/code-coverage-monitor.git`
+1. Clone the repository: `git clone https://github.com/olegkuibar/code-coverage-monitor.git`
 2. Install the dependencies for each service: `yarn install` (or `npm install`) in the root, `/auth`, `/data`, and `/ui` directories.
 3. Start the services by running `docker-compose up` or `docker-compose up -d` to run in detached mode.
 
