@@ -100,7 +100,9 @@ To run the tests, you can use `yarn test` (or `npm test`) in the root, `/auth`, 
 </details>
 
 ## Authors
-* **Oleh Kuibar** - *Initial work* - [olegkuibar](https://www.github.com/olegkuibar)
+* **Oleh Kuibar** - [olegkuibar](https://www.github.com/oleg-kuibar)
+* ![LinkedIn logo](https://img.icons8.com/color/30/null/linkedin.png) - [Oleh Kuibar](https://www.linkedin.com/in/olegkuibar/)
+
 
 ## Docker
 
