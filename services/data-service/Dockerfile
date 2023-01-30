@@ -17,10 +17,10 @@ COPY . .
 ENV NODE_ENV=production
 
 # Load environment variables from .env file
-RUN set -a && [ -f .env ] && . .env && set +a
+# RUN set -a && [ -f .env ] && . .env && set +a
 
 # Expose the app's port
-EXPOSE 3000
+EXPOSE 3001
 
 # Start the app
 CMD [ "yarn", "start" ]
