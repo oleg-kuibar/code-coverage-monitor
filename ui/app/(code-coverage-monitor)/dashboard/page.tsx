@@ -1,11 +1,8 @@
-// Dashboard page component
-// This component is the main page of the dashboard
-//
-// Path: ui/app/(code-coverage-monitor)/dashboard/page.tsx
+'use client';
 
 import React from "react";
 
-const Page = () => {
+const DashboardPage = () => {
     return (
         <div>
             <h1>Dashboard</h1>
@@ -13,4 +10,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default DashboardPage;
