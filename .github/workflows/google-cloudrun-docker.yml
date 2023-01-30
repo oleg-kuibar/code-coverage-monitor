@@ -52,12 +52,12 @@ jobs:
 
       - name: Build Containers
         run: |-
-          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}/auth" ./services/auth-service
-          docker push -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}/auth"
-          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}/data" ./services/data-service
-          docker push -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}/data"
-          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}/ui" ./ui
-          docker push -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}/ui"
+          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}" ./services/auth-service
+          docker push -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}"
+          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}" ./services/data-service
+          docker push -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}"
+          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}" ./ui
+          docker push -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}"
 
       # END - Docker auth and build
 
