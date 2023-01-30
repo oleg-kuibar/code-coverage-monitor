@@ -1,0 +1,40 @@
+version: '3'
+services:
+  auth-service:
+    build:
+      context: auth-service
+      args:
+        NODE_ENV: production
+        JWT_SECRET: secret
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/auth-service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+
+  data-service:
+    build:
+      context: data-service
+      args:
+        NODE_ENV: production
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/data-service
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+
+  ui:
+    build:
+      context: ui
+    ports:
+      - "80:80"
+    depends_on:
+      - auth-service
+      - data-service
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
