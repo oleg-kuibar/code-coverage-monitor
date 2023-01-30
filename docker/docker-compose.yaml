@@ -2,7 +2,7 @@ version: '3'
 services:
   auth-service:
     build:
-      context: auth-service
+      context: ../services/auth-service
       args:
         NODE_ENV: production
         JWT_SECRET: secret
@@ -15,7 +15,7 @@ services:
 
   data-service:
     build:
-      context: data-service
+      context: ../services/data-service
       args:
         NODE_ENV: production
     environment:
@@ -27,7 +27,7 @@ services:
 
   ui:
     build:
-      context: ui
+      context: ../ui
     ports:
       - "80:80"
     depends_on:
