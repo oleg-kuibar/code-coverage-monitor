@@ -12,6 +12,7 @@ This repository contains a web application that allows you to monitor the code c
 
 - [System Graph](docs/SYSTEM_GRAPH.md)
 - [Commit Guidelines](docs/COMMIT_GUIDELINES.md)
+- [User Flow](docs/USER_FLOW.md)
 
 ## Auth Microservice
 
@@ -99,7 +100,9 @@ To run the tests, you can use `yarn test` (or `npm test`) in the root, `/auth`, 
 </details>
 
 ## Authors
-* **Oleh Kuibar** - *Initial work* - [olegkuibar](https://www.github.com/olegkuibar)
+* **Oleh Kuibar** - [olegkuibar](https://www.github.com/oleg-kuibar)
+* ![LinkedIn logo](https://img.icons8.com/color/30/null/linkedin.png) - [Oleh Kuibar](https://www.linkedin.com/in/olegkuibar/)
+
 
 ## Docker
 
