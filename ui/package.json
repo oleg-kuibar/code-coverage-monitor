@@ -14,7 +14,7 @@
     "lint": "next lint",
     "tailwind": "tailwindcss -i styles/globals.css -o styles/dist.css",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
-    "postinstall": "npm run tailwind"
+    "postinstall": "yarn tailwind"
   },
   "prettier": {
     "arrowParens": "always",
