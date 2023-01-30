@@ -7,21 +7,9 @@
 # 3. Build a docker container
 # 4. Publish it to Google Artifact Registry
 # 5. Deploy it to Cloud Run
-name: Build and Deploy to Cloud Run
-
-on:
-  push:
-    branches: [ "main" ]
-
-env:
-  PROJECT_ID: "code-coverage-tool"
-  GAR_LOCATION: "us-central1"
-  SERVICE: "code-coverage-tool"
-  REGION: "us-central1"
-
 jobs:
-  build:
-    name: Build Docker Containers
+  build-auth:
+    name: Build Container
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -44,23 +32,73 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: 'gcr.io'
 
-      - name: Build Auth Service
+      - name: Build Auth Container
         run: |
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}" ./services/auth-service
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}"
-      - name: Build Data Service
+
+  build-data:
+    name: Build Data Container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v0'
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+
+      # Authenticate Docker to Google Cloud Artifact Registry
+      - name: Docker Auth
+        id: docker-auth
+        uses: 'docker/login-action@v1'
+        with:
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: 'gcr.io'
+
+      - name: Build Data Container
         run: |
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}" ./services/data-service
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}"
-      - name: Build UI
+
+  build-ui:
+    name: Build UI Container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v0'
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+
+      # Authenticate Docker to Google Cloud Artifact Registry
+      - name: Docker Auth
+        id: docker-auth
+        uses: 'docker/login-action@v1'
+        with:
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: 'gcr.io'
+
+      - name: Build Data Container
         run: |
-          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}" ./ui
+          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}" ./services/data-service
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}"
+
 
 
   deploy:
     name: Deploy to Cloud Run
-    depends-on: build
     runs-on: ubuntu-latest
     steps:
       - name: Google Auth
