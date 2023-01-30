@@ -8,6 +8,11 @@ This repository contains a web application that allows you to monitor the code c
 2. Install the dependencies for each service: `yarn install` (or `npm install`) in the root, `/auth`, `/data`, and `/ui` directories.
 3. Start the services by running `docker-compose up` or `docker-compose up -d` to run in detached mode.
 
+## Documentation
+
+- [System Graph](docs/SYSTEM_GRAPH.md)
+- [Commit Guidelines](docs/COMMIT_GUIDELINES.md)
+
 ## Auth Microservice
 
 The auth microservice is responsible for user registration, login, and logout, and is responsible for generating and validating JSON web tokens (JWT) used to authenticate requests. It also issues cookies to the front-end.
