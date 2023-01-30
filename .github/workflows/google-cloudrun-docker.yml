@@ -54,6 +54,10 @@ jobs:
         run: |-
           cd ./docker
           docker-compose build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
+
+      - name: Push Container
+        run: |-
+          cd ./docker
           docker-compose push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
 
       # END - Docker auth and build
