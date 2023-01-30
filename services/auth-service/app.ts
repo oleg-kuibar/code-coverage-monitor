@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import helmet from "helmet";
 import * as bodyParser from "body-parser";
 import * as passport from "passport";
-import cookieParser from "cookie-parser";
+import cookieParser = require("cookie-parser");
 
 const app = express();
 
 // Connect to the MongoDB
-mongoose.connect(process.env.MONGO_URL, {},
+mongoose.connect(process.env.MONGO_URL as string, {},
     (err) => {
         if (err) {
             console.log(err);

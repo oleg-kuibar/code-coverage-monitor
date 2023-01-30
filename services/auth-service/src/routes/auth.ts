@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import {AuthService} from '../services/auth';
 
-const { login, logout, signUp } = new AuthService();
+const { login, logout, register } = new AuthService();
 const router = Router();
 
-router.post('/signup', async (req, res) => {
-    const user = await signUp(req.body);
+router.post('/register', async (req, res) => {
+    const user = await register(req.body);
     res.status(201).json(user);
 });
 

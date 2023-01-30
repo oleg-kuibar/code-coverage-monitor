@@ -8,7 +8,7 @@ import { merge } from "lodash";
 const app = express();
 
 // Connect to the MongoDB
-mongoose.connect(process.env.MONGO_URL, {},
+mongoose.connect(process.env.MONGO_URL as string, {},
     (err) => {
         if (err) {
             console.log(err);

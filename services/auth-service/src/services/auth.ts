@@ -2,13 +2,13 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import User from '../models/user';
 import * as process from "process";
-import {ILogin, ISignUp} from "../types/auth.interface";
-import {Request, Response} from "express";
+import {Request,    Response} from "express";
+import {ILogin, IRegister} from "../types/auth";
 
 const JWT_SECRET: string = process.env.JWT_SECRET as string;
 
 export class AuthService {
-    async signUp({ email, password, name }: ISignUp ): Promise<{ token: string }> {
+    async register({ email, password, name }: IRegister ): Promise<{ token: string }> {
         const user = await User.findOne({ email });
         if (user) {
             throw new Error('User already exists');
