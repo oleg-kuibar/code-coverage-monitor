@@ -7,6 +7,7 @@
 # 3. Build a docker container
 # 4. Publish it to Google Artifact Registry
 # 5. Deploy it to Cloud Run
+
 name: Build and Deploy to Cloud Run
 
 on:
@@ -20,8 +21,11 @@ env:
   REGION: "us-central1"
 
 jobs:
-  build-auth:
-    name: Build Container
+  build_auth_service:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -44,13 +48,17 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: 'gcr.io'
 
-      - name: Build Auth Container
-        run: |
+      - name: Build Containers
+        run: |-
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}" ./services/auth-service
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}"
 
-  build-data:
-    name: Build Data Container
+      # END - Docker auth and build
+  build_data_service:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -73,13 +81,17 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: 'gcr.io'
 
-      - name: Build Data Container
-        run: |
+      - name: Build Containers
+        run: |-
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}" ./services/data-service
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}"
 
-  build-ui:
-    name: Build UI Container
+      # END - Docker auth and build
+  build_ui_service:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -102,17 +114,22 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: 'gcr.io'
 
-      - name: Build Data Container
-        run: |
-          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}" ./services/data-service
+      - name: Build Containers
+        run: |-
+          docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}" ./ui
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}"
 
-
-
+      # END - Docker auth and build
   deploy:
-    name: Deploy to Cloud Run
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v0'
@@ -121,8 +138,17 @@ jobs:
           workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
           service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
 
-      - name: Deploy Auth Service to Cloud Run
-        id: deploy-auth
+      # Authenticate Docker to Google Cloud Artifact Registry
+      - name: Docker Auth
+        id: docker-auth
+        uses: 'docker/login-action@v1'
+        with:
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: 'gcr.io'
+
+      - name: Deploy to Cloud Run
+        id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
         with:
           service: ${{ env.SERVICE }}
@@ -130,6 +156,7 @@ jobs:
           # NOTE: If using a pre-built image, update the image name here
           image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
 
-      # If required, use the Cloud Run url output in later steps
+        # If required, use the Cloud Run url output in later steps
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
+
