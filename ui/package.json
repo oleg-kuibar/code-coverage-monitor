@@ -8,9 +8,8 @@
     "url": "https://www.github.com/oleg-kuibar"
   },
   "scripts": {
-    "dev": "next dev --turbo",
-    "dev:tailwind": "concurrently \"next dev\" \"npm run tailwind -- --watch\"",
-    "build": "next build",
+    "dev": "concurrently \"next dev --turbo\" \"tailwindcss -i styles/globals.css -o styles/dist.css -w\"",
+    "build": "tailwindcss -m -i styles/globals.css -o styles/dist.css && next build",
     "start": "next start",
     "lint": "next lint",
     "tailwind": "tailwindcss -i styles/globals.css -o styles/dist.css",
