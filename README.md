@@ -12,6 +12,7 @@ This repository contains a web application that allows you to monitor the code c
 
 - [System Graph](docs/SYSTEM_GRAPH.md)
 - [Commit Guidelines](docs/COMMIT_GUIDELINES.md)
+- [User Flow](docs/USER_FLOW.md)
 
 ## Auth Microservice
 
