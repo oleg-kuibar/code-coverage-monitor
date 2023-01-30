@@ -7,6 +7,18 @@
 # 3. Build a docker container
 # 4. Publish it to Google Artifact Registry
 # 5. Deploy it to Cloud Run
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  PROJECT_ID: "code-coverage-tool"
+  GAR_LOCATION: "us-central1"
+  SERVICE: "code-coverage-tool"
+  REGION: "us-central1"
+
 jobs:
   build-auth:
     name: Build Container
