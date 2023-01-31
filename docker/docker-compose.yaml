@@ -2,7 +2,7 @@ version: '3'
 services:
   auth-service:
     build:
-      context: ../services/auth-service
+      context: ../src/services/auth-service
       args:
         NODE_ENV: production
     environment:
@@ -14,7 +14,7 @@ services:
 
   data-service:
     build:
-      context: ../services/data-service
+      context: ../src/services/data-service
       args:
         NODE_ENV: production
     environment:
@@ -24,9 +24,9 @@ services:
     depends_on:
       - mongo
 
-  ui:
+  frotnend:
     build:
-      context: ../frontend
+      context: ../src/frontend
     ports:
       - "80:80"
     depends_on:
