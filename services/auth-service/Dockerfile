@@ -10,7 +10,7 @@ COPY package.json yarn.lock ./
 # Install dependencies
 RUN yarn install
 
-# Copy the remaining application files
+# Copy the remaining application files, but ignore the ones in .dockerignore
 COPY . .
 
 # Set environment variables

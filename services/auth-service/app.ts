@@ -1,11 +1,17 @@
 import express = require("express");
+import bodyParser = require("body-parser");
+import passport = require("passport");
+import cookieParser = require("cookie-parser");
+import dotenv = require('dotenv');
+import process = require('process');
+
 import mongoose from "mongoose";
 import helmet from "helmet";
-import * as bodyParser from "body-parser";
-import * as passport from "passport";
-import cookieParser = require("cookie-parser");
+
+dotenv.config();
 
 const app = express();
+export default app;
 
 // Connect to the MongoDB
 mongoose.connect(process.env.MONGO_URL as string, {},
@@ -29,10 +35,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Initialize Passport
 app.use(passport.initialize());
-
 // Import routes
-const authRoutes = require('./src/routes/auth');
-const userRoutes = require('./src/routes/user');
+import authRoutes from "./src/routes/auth";
+import userRoutes from "./src/routes/user";
 
 // Use routes
 app.use('/api/auth', authRoutes);

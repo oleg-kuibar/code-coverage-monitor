@@ -5,3 +5,5 @@ const router = Router();
 router.get('/me', async (req, res) => {
     res.json(req.user);
 });
+
+export default router;
