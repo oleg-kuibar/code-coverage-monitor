@@ -52,12 +52,16 @@ jobs:
 
       - name: Build Containers
         run: |-
+        # build the ui and services images
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}" ./services/auth-service
-          docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}"
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}" ./services/data-service
-          docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}"
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}" ./ui
+        # push ui and services images to Google Cloud Artifact Registry
+          docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}"
+          docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}"
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}"
+        # push the GCP mongo image to Google Cloud Artifact Registry
+          docker push "marketplace.gcr.io/google/mongodb4"
 
       # END - Docker auth and build
 
