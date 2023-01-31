@@ -1,11 +1,17 @@
-import * as bodyParser from "body-parser";
-import * as cookieParser from "cookie-parser";
-import * as mongoose from "mongoose";
 import express = require("express");
+import bodyParser = require("body-parser");
+import cookieParser = require("cookie-parser");
+import dotenv = require('dotenv');
+import process = require('process');
+import {merge} from "lodash";
+
+import mongoose from "mongoose";
 import helmet from "helmet";
-import { merge } from "lodash";
+
+dotenv.config();
 
 const app = express();
+export default app;
 
 // Connect to the MongoDB
 mongoose.connect(process.env.MONGO_URL as string, {},

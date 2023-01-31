@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
+import { Router, Request, Response } from "express";
 import { RepositoryModel } from "../models/repository.schema"
 
-const router = express.Router();
+const router = Router();
 
 // Get all repositories
 router.get("/", async (_, res: Response) => {

@@ -1,10 +1,10 @@
 // Get a single repository coverage history
-import express, {Request, Response} from "express";
+import { Router, Request, Response} from "express";
 import CoverageHistorySchema from "../models/coverage-history.schema";
 import { Error } from 'mongoose';
 import {ICoverageHistory} from "../types/coverage-history";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/:id/coverage-history/:historyId", (req: Request, res: Response) => {
     const repositoryId = req.params.repositoryId;
