@@ -4,9 +4,37 @@ This repository contains a web application that allows you to monitor the code c
 
 ## Getting Started
 
+### Prerequisites
+
+- [Node.js 16+](https://nodejs.org/en/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+### With Docker
+
 1. Clone the repository: `git clone https://github.com/olegkuibar/code-coverage-monitor.git`
-2. Install the dependencies for each service: `yarn install` (or `npm install`) in the root, `/auth`, `/data`, and `/ui` directories.
-3. Start the services by running `docker-compose up` or `docker-compose up -d` to run in detached mode.
+2. Navigate to the root of the project: `cd code-coverage-monitor`
+3. Start the services by running compose file from docker folder
+4. `docker-compose up -f docker/docker-compose.yml`  or `docker-compose up -f docker/docker-compose.yml -d` to run in background
+
+### Without Docker
+
+
+Prerequisites:
+
+- [MongoDB](https://www.mongodb.com/)
+
+Run local MongoDB instance.
+
+1. Install MongoDB from [here](https://www.mongodb.com/try/download/community)
+2. Run MongoDB instance with default settings by running `mongod` in terminal
+3. Create database `auth-service` and collection `users` in MongoDB
+4. Create database `data-service` and collection `coverageHistory` in MongoDB
+
+Starting the services:
+
+1. Clone the repository: `git clone https://github.com/olegkuibar/code-coverage-monitor.git`
+2. Install the dependencies for each service: `yarn install` (or `npm install`) in the root, `/services/auth-service`, `/services/data-service`, and `/ui` directories.
 
 ## Documentation
 
