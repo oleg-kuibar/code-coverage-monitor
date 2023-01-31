@@ -52,7 +52,6 @@ jobs:
 
       # build the ui and services images
       # push ui and services images to Google Cloud Artifact Registry
-      # push the GCP mongo image to Google Cloud Artifact Registry
       - name: Build Containers
         run: |-
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}" ./services/auth-service
@@ -61,7 +60,6 @@ jobs:
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:auth-${{ github.sha }}"
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:data-${{ github.sha }}"
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:ui-${{ github.sha }}"
-          docker push "marketplace.gcr.io/google/mongodb4"
 
       # END - Docker auth and build
 
