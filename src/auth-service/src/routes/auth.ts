@@ -1,20 +1,13 @@
-import { Router } from 'express';
-import {AuthService} from '../services/auth';
+import express from 'express';
+import { AuthService } from '../services/auth';
 
-const { login, logout, register } = new AuthService();
-const router = Router();
+const authRouter = express.Router();
+const authService = new AuthService();
 
-router.post('/register', async (req, res) => {
-    const user = await register(req.body);
-    res.status(201).json(user);
-});
+authRouter.post('/register', authService.register);
+authRouter.post('/login', authService.login);
+authRouter.get('/logout', authService.logout);
+authRouter.get('/github', authService.authenticateWithGitHub);
+authRouter.get('/github/callback', authService.handleGitHubCallback);
 
-router.post('/login', async (req, res) => {
-    const { token, user } = await login(req.body);
-    res.cookie('token', token, { httpOnly: true });
-    res.json(user);
-});
-
-router.post('/logout', logout);
-
-export default router;
+export default authRouter;

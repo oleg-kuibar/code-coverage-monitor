@@ -1,9 +1,11 @@
-import { Router } from 'express';
-const router = Router();
+import express from 'express';
+import { UserService } from '../services/user';
 
-// get own user data
-router.get('/me', async (req, res) => {
-    res.json(req.user);
-});
+const userRouter = express.Router();
+const userService = new UserService();
 
-export default router;
+userRouter.get('/:id', userService.getUserById);
+userRouter.get('/repositories', userService.getUserRepositories);
+userRouter.get('/:id/repositories', userService.getUserRepositoriesById);
+
+export default userRouter;

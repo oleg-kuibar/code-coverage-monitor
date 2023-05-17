@@ -14,8 +14,7 @@ This repository contains a web application that allows you to monitor the code c
 
 1. Clone the repository: `git clone https://github.com/olegkuibar/code-coverage-monitor.git`
 2. Navigate to the root of the project: `cd code-coverage-monitor`
-3. Start the services by running compose file from docker folder
-4. `docker-compose up -f docker/docker-compose.yml`  or `docker-compose up -f docker/docker-compose.yml -d` to run in background
+3. Run `start-docker.sh` to start the services (this will create network and run compose)
 
 ### Without Docker
 
