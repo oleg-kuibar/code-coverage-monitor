@@ -38,10 +38,16 @@ app.use(cookieParser());
 
 // Import routes
 import verifyJwt from "./src/middleware/jwt.middleware";
-import { repositoryRoutes } from "./src/routes/repository";
-import { repositoryCodeCoverageRoutes } from "./src/routes/repository-code-coverage";
+import repositoryRoute from "./src/routes/repository";
+import codeCoverageRoute from "./src/routes/coverage";
+
+import { serve, setup } from "swagger-ui-express";
+
+import specs from "./swagger";
+// Add middleware to serve the Swagger UI
+app.use('/api-docs', serve, setup(specs));
 
 // Use routes
 // public routes
 // protected routes
-app.use("/repositories", verifyJwt, merge(repositoryRoutes, repositoryCodeCoverageRoutes));
+app.use("/repositories", verifyJwt, merge(repositoryRoute, codeCoverageRoute));
