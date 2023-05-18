@@ -82,6 +82,8 @@ interface ICoverageHistory {
 
 ### API Endpoints
 
+<small style="color: orange; font-style: italic">SUBJECT TO CHANGE</small>
+
 The data microservice has the following API endpoints:
 
 - `GET /coverage/history`: Retrieves the code coverage history for all projects.
