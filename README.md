@@ -51,6 +51,9 @@ The data microservice is responsible for serving data to the front-end, but only
 
 ### Data Model
 
+<small style="color: orange; font-style: italic">SUBJECT TO CHANGE</small>
+
+
 The data microservice uses MongoDB to store the code coverage history. The data model is defined in `src/models/coverageHistory.ts` and has the following fields:
 
 ```typescript
