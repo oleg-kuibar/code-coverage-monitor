@@ -127,21 +127,13 @@ To run the tests, you can use `yarn test` (or `npm test`) in the root, `/auth`, 
 </details>
 
 ## Authors
-* **Oleh Kuibar** - [olegkuibar](https://www.github.com/oleg-kuibar)
-* ![LinkedIn logo](https://img.icons8.com/color/30/null/linkedin.png) - [Oleh Kuibar](https://www.linkedin.com/in/olegkuibar/)
+* **GitHub** - [olegkuibar](https://www.github.com/oleg-kuibar)
+* **LinkedIn** - [olegkuibar](https://www.linkedin.com/in/olegkuibar/)
 
 
 ## Docker
 
-This project comes with a `Dockerfile` and `docker-compose.yml` for easy deployment.
-
-### Building the image
-
-To build the image, navigate to the root of the project and run:
-
-```bash
-docker build -t code-coverage-monitor .
-```
+This project comes with a `docker-compose.yml` for easy deployment.
 
 ### Running the services
 
@@ -150,6 +142,10 @@ To run the services, navigate to the root of the project and run:
 ```bash 
 docker-compose up
 ```
+
+As alternative to build images, navigate to the root of the project and execute bash script `start-docker.sh`.
+
+This will set up network, build the images and run the services.
 
 ### Stopping the services
 
@@ -161,15 +157,13 @@ docker-compose down
 
 ## Project Structure
 
-- `/services`: Contains the source code for the auth and data microservices.
+- `/src`: Contains the source code for the auth and data microservices.
 - - `/auth-service`: The Express.js application for handling user authentication and JWT generation/validation.
 - - `/data-service`: The Express.js application for handling data storage and retrieval.
-- - `/data-validation`: The Express.js application for validating data before saving it to the database.
-- `/ui`: The Next.js.js application for displaying code coverage history and improvements/degradation over time.
+- - `/frontend`: The Next.js.js application for displaying code coverage history and improvements/degradation over time.
 - `/data`: The MongoDB data volume.
 - `/shared`: A place for shared code between services.
 - `/config`: Contains the configuration files for the services.
-- `/docker`: Contains the Dockerfiles for the services.
 
 ## Deployment
 
