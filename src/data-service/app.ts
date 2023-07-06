@@ -2,27 +2,13 @@ import express = require("express");
 import bodyParser = require("body-parser");
 import cookieParser = require("cookie-parser");
 import dotenv = require('dotenv');
-import process = require('process');
 import {merge} from "lodash";
-
-import mongoose from "mongoose";
 import helmet from "helmet";
 
 dotenv.config();
 
 const app = express();
 export default app;
-
-// Connect to the MongoDB
-mongoose.connect(process.env.MONGO_URL as string, {},
-    (err) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Connected to MongoDB');
-        }
-    }
-);
 
 // Use helmet to set security-related HTTP headers
 app.use(helmet());
@@ -50,4 +36,4 @@ app.use('/api-docs', serve, setup(specs));
 // Use routes
 // public routes
 // protected routes
-app.use("/repositories", verifyJwt, merge(repositoryRoute, codeCoverageRoute));
+app.use("/api/v1", verifyJwt, merge(repositoryRoute, codeCoverageRoute));
