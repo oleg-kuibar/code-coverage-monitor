@@ -3,7 +3,66 @@ import {CodeCoverageService} from "../services/CodeCoverageService";
 
 const codeCoverageService = new CodeCoverageService();
 const codeCoverageRoute = Router();
-codeCoverageRoute.post('analyze', async (req: Request, res: Response) => {
+/**
+ * @swagger
+ * /api/analyze:
+ *   post:
+ *     summary: Analyze code coverage
+ *     tags:
+ *       - Code Coverage
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               repositoryUrl:
+ *                 type: string
+ *             example:
+ *               repositoryUrl: https://github.com/owner/repo
+ *     responses:
+ *       200:
+ *         description: Successful analysis
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 reportPath:
+ *                   type: string
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+codeCoverageRoute.post('/analyze', async (req: Request, res: Response) => {
   const { repositoryUrl } = req.body;
 
   try {
