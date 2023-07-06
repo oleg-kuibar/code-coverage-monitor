@@ -1,5 +1,5 @@
 version: '3'
-services:  
+services:
   auth-service:
     build:
       context: src/auth-service
@@ -36,9 +36,12 @@ services:
   mongo:
     image: mongo
     restart: always
+    ports:
+      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: mydatabase
 
   mongo-express:
     image: mongo-express
@@ -50,9 +53,17 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
 
+  postgresql:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: mydatabase
+
 volumes:
   data:
 
 networks:
-    code_coverage:
-        external: true
+  code_coverage:
+    external: true
