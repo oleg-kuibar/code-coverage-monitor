@@ -1,32 +1,33 @@
 import axios from 'axios';
-import {RepositoryFetchingStrategy} from "../../models/repository";
+import { GitHubRepositoryContent, GitHubRepositoryInfo, RepositoryFetchingStrategy } from "../../models/repository";
 
 export class GitHubStrategy implements RepositoryFetchingStrategy {
-  async getUserRepositories(accessToken: string): Promise<string[]> {
-    try {
-      // Make a request to the GitHub API to get the user's repositories
-      const response = await axios.get('https://api.github.com/user/repos', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
 
-      // Extract the repository names from the response
-      return response.data.map((repo: { name: string }) => repo.name);
+  async getPublicRepositoryInfo(owner: string, repo: string): Promise<GitHubRepositoryInfo> {
+    try {
+      const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}`);
+      return response.data;
     } catch (error) {
-      throw new Error('Failed to fetch user repositories from GitHub API.');
+      throw new Error('Failed to fetch repository information from GitHub API.');
     }
   }
-  
-  async getUserRepositoriesById(accessToken: string, id: string): Promise<string[]> {
+
+  async getPublicRepositoryContent(owner: string, repo: string): Promise<GitHubRepositoryContent[]> {
     try {
-      const response = await axios.get(`https://api.github.com/users/${id}/repos`, {  
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        }
-      });
-      
-      return response.data.map((repo: { name: string }) => repo.name);
+      const response = await axios.get<GitHubRepositoryContent[]>(`https://api.github.com/repos/${owner}/${repo}/contents`);
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to fetch repository information from GitHub API.');
+    }
+  }
+
+  async getPublicRepositoriesByUserId(user: string): Promise<string[]> {
+    try {
+      // Make a request to the GitHub API to get the user's repositories
+      const response = await axios.get<GitHubRepositoryInfo[]>(`https://api.github.com/users/${user}/repos`);
+
+      // Extract the repository names from the response
+      return response.data.map(repo => repo.name);
     } catch (error) {
       throw new Error('Failed to fetch user repositories from GitHub API.');
     }
