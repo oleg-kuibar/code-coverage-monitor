@@ -1,4 +1,4 @@
-# Code Coverage Monitor
+# Code Coverage Monitor (Work in Progress)
 
 This repository contains a web application that allows you to monitor the code coverage of your projects over time. It includes an auth microservice, a data microservice, and a UI.
 
